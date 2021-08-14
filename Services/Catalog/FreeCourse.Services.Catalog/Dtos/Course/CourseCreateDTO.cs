@@ -12,7 +12,7 @@ namespace FreeCourse.Services.Catalog.Dtos.Course
 
         public string UserId { get; set; }
 
-        public FutureDTO Feature { get; set; }
+        public FeatureDTO Feature { get; set; }
 
         public string CategoryId { get; set; }
     }
