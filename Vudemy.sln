@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Ports.txt = Ports.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{3F85C0F8-BB3C-4BAD-94D9-DD86B79CFE0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.Shared", "Shared\FreeCourse.Shared\FreeCourse.Shared.csproj", "{0882E192-B68F-4F85-AB88-A489CB29495B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +28,10 @@ Global
 		{508F8ABC-0FE5-4CF0-9DEE-9085BFCA3EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{508F8ABC-0FE5-4CF0-9DEE-9085BFCA3EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{508F8ABC-0FE5-4CF0-9DEE-9085BFCA3EE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0882E192-B68F-4F85-AB88-A489CB29495B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0882E192-B68F-4F85-AB88-A489CB29495B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0882E192-B68F-4F85-AB88-A489CB29495B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0882E192-B68F-4F85-AB88-A489CB29495B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -31,6 +39,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4930BCFA-1547-4A50-B8DC-EB72CB9DC46B} = {B07076AE-4098-4049-910E-CE1BA371F3AD}
 		{508F8ABC-0FE5-4CF0-9DEE-9085BFCA3EE2} = {4930BCFA-1547-4A50-B8DC-EB72CB9DC46B}
+		{0882E192-B68F-4F85-AB88-A489CB29495B} = {3F85C0F8-BB3C-4BAD-94D9-DD86B79CFE0B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7228B1B9-50D8-4DB7-A6E2-6F31CD646CDB}
