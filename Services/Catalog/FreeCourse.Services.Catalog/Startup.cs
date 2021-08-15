@@ -1,3 +1,5 @@
+using FreeCourse.Services.Catalog.Services.Category.Abstracts;
+using FreeCourse.Services.Catalog.Services.Category.Interfaces;
 using FreeCourse.Services.Catalog.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,12 +23,14 @@ namespace FreeCourse.Services.Catalog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddScoped<ICategoryService, CategoryService>();
+
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
 
             services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));
-            services.AddSingleton<IDatabaseSettings>(sp => {
+            services.AddSingleton<IDatabaseSettings>(sp =>
+            {
                 return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
             });
 

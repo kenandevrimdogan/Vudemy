@@ -2,9 +2,9 @@
 using FreeCourse.Services.Catalog.Dtos.Category;
 using FreeCourse.Services.Catalog.Dtos.Course;
 using FreeCourse.Services.Catalog.Dtos.Future;
-using FreeCourse.Services.Catalog.Models.Category;
-using FreeCourse.Services.Catalog.Models.Course;
-using FreeCourse.Services.Catalog.Models.Feature;
+using FreeCourse.Services.Catalog.Models.Categories;
+using FreeCourse.Services.Catalog.Models.Courses;
+using FreeCourse.Services.Catalog.Models.Features;
 
 namespace FreeCourse.Services.Catalog.Mapping
 {
@@ -18,6 +18,9 @@ namespace FreeCourse.Services.Catalog.Mapping
 
             CreateMap<Course, CourseCreateDTO>().ReverseMap();
             CreateMap<Course, CourseUpdateDTO>().ReverseMap();
+
+            CreateMap<Category, CategoryCreateDTO>().ReverseMap();
+            CreateMap<Category, CategoryUpdateDTO>().ReverseMap();
 
         }
     }

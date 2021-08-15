@@ -1,8 +1,10 @@
-﻿using MongoDB.Bson;
+﻿using FreeCourse.Services.Catalog.Models.Categories;
+using FreeCourse.Services.Catalog.Models.Features;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace FreeCourse.Services.Catalog.Models.Course
+namespace FreeCourse.Services.Catalog.Models.Courses
 {
     public class Course
     {
@@ -24,12 +26,12 @@ namespace FreeCourse.Services.Catalog.Models.Course
         [BsonRepresentation(BsonType.DateTime)]
         public DateTime CreatedTime { get; set; }
 
-        public Feature.Feature Feature { get; set; }
+        public Feature Feature { get; set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string CategoryId { get; set; }
 
         [BsonIgnore]
-        public Category.Category Category { get; set; }
+        public Category Category { get; set; }
     }
 }
