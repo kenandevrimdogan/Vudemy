@@ -2,6 +2,7 @@
 using FreeCourse.Services.Catalog.Dtos.Category;
 using FreeCourse.Services.Catalog.Services.Category.Interfaces;
 using FreeCourse.Services.Catalog.Settings;
+using FreeCourse.Shared.Dtos.NoContent;
 using FreeCourse.Shared.Dtos.Response;
 using MongoDB.Driver;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace FreeCourse.Services.Catalog.Services.Category.Abstracts
 
         public async Task<ResponseDTO<CategoryDTO>> GetByIdAsync(string id)
         {
-            var category = await _categoryCollection.Find<Models.Categories.Category>(x => x.Id == id).FirstOrDefaultAsync();
+            var category = await _categoryCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
             if (category == null)
             {
@@ -53,6 +54,32 @@ namespace FreeCourse.Services.Catalog.Services.Category.Abstracts
             var categoryDTO = _maper.Map<Models.Categories.Category, CategoryDTO>(category);
 
             return ResponseDTO<CategoryDTO>.Success(categoryDTO, HttpStatusCode.OK);
+        }
+
+        public async Task<ResponseDTO<NoContent>> UpdateAsync(CategoryUpdateDTO categoryUpdate)
+        {
+            var category = _maper.Map<CategoryUpdateDTO, Models.Categories.Category>(categoryUpdate);
+
+            var result = await _categoryCollection.FindOneAndReplaceAsync(x => x.Id == categoryUpdate.Id, category);
+
+            if (result == null)
+            {
+                return ResponseDTO<NoContent>.Fail("Course not found", HttpStatusCode.NotFound);
+            }
+
+            return ResponseDTO<NoContent>.Success(HttpStatusCode.OK);
+        }
+
+        public async Task<ResponseDTO<NoContent>> DeleteAsync(string id)
+        {
+            var result = await _categoryCollection.DeleteOneAsync(x => x.Id == id);
+
+            if (result.DeletedCount < 0)
+            {
+                return ResponseDTO<NoContent>.Fail("Course not found", HttpStatusCode.NotFound);
+            }
+
+            return ResponseDTO<NoContent>.Success(HttpStatusCode.OK);
         }
     }
 }
