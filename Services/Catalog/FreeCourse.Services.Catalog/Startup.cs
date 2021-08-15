@@ -1,5 +1,7 @@
 using FreeCourse.Services.Catalog.Services.Category.Abstracts;
 using FreeCourse.Services.Catalog.Services.Category.Interfaces;
+using FreeCourse.Services.Catalog.Services.Course.Abstracts;
+using FreeCourse.Services.Catalog.Services.Course.Interfaces;
 using FreeCourse.Services.Catalog.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +26,7 @@ namespace FreeCourse.Services.Catalog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICourseService, CourseService>();
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();

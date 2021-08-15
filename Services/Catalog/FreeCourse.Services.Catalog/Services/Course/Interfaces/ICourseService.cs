@@ -10,8 +10,10 @@ namespace FreeCourse.Services.Catalog.Services.Course.Interfaces
     {
         Task<ResponseDTO<List<CourseDTO>>> GetAllAsync();
 
+        Task<ResponseDTO<CourseDTO>> GetByIdAsync(string id);
 
-        Task<ResponseDTO<List<CourseDTO>>> GetByUserIdAsync(string userId);
+
+        Task<ResponseDTO<List<CourseDTO>>> GetAllByUserIdAsync(string userId);
 
 
         Task<ResponseDTO<CourseDTO>> CreateAsync(CourseCreateDTO createcourse);

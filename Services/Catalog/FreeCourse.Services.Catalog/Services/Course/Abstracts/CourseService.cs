@@ -44,7 +44,21 @@ namespace FreeCourse.Services.Catalog.Services.Course.Abstracts
             return ResponseDTO<List<CourseDTO>>.Success(_maper.Map<List<CourseDTO>>(courses), HttpStatusCode.OK);
         }
 
-        public async Task<ResponseDTO<List<CourseDTO>>> GetByUserIdAsync(string userId)
+        public async Task<ResponseDTO<CourseDTO>> GetByIdAsync(string id)
+        {
+            var course = await _courseCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (course == null)
+            {
+                return ResponseDTO<CourseDTO>.Success(new CourseDTO(), HttpStatusCode.OK);
+            }
+
+            var courseDTO = _maper.Map<Models.Courses.Course, CourseDTO>(course);
+
+            return ResponseDTO<CourseDTO>.Success(courseDTO, HttpStatusCode.OK);
+        }
+
+        public async Task<ResponseDTO<List<CourseDTO>>> GetAllByUserIdAsync(string userId)
         {
             var courses = await _courseCollection.Find(x => x.UserId == userId).ToListAsync();
 
