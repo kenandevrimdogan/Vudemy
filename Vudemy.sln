@@ -22,6 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeCourse.IdentityServer", "IdentityServer\FreeCourse.IdentityServer\FreeCourse.IdentityServer.csproj", "{F3A7315E-58AF-462F-8AB5-0B4746A64693}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStock", "PhotoStock", "{D9710FD0-BD23-4532-982A-95A22361CD3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.Services.PhotoStock", "Services\PhotoStock\FreeCourse.Services.PhotoStock\FreeCourse.Services.PhotoStock.csproj", "{E31E5D34-32C3-4E3B-A293-7755F887802A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +44,10 @@ Global
 		{F3A7315E-58AF-462F-8AB5-0B4746A64693}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3A7315E-58AF-462F-8AB5-0B4746A64693}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3A7315E-58AF-462F-8AB5-0B4746A64693}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E31E5D34-32C3-4E3B-A293-7755F887802A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E31E5D34-32C3-4E3B-A293-7755F887802A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E31E5D34-32C3-4E3B-A293-7755F887802A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E31E5D34-32C3-4E3B-A293-7755F887802A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +57,8 @@ Global
 		{508F8ABC-0FE5-4CF0-9DEE-9085BFCA3EE2} = {4930BCFA-1547-4A50-B8DC-EB72CB9DC46B}
 		{0882E192-B68F-4F85-AB88-A489CB29495B} = {3F85C0F8-BB3C-4BAD-94D9-DD86B79CFE0B}
 		{F3A7315E-58AF-462F-8AB5-0B4746A64693} = {A387F2D7-1F20-46E2-A70D-CBCEAFAC6E4F}
+		{D9710FD0-BD23-4532-982A-95A22361CD3F} = {B07076AE-4098-4049-910E-CE1BA371F3AD}
+		{E31E5D34-32C3-4E3B-A293-7755F887802A} = {D9710FD0-BD23-4532-982A-95A22361CD3F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7228B1B9-50D8-4DB7-A6E2-6F31CD646CDB}
