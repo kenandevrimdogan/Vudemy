@@ -1,4 +1,5 @@
 using FreeCourse.Services.Basket.Services.Abstracts;
+using FreeCourse.Services.Basket.Services.Interfaces;
 using FreeCourse.Services.Basket.Settings;
 using FreeCourse.Shared.Services.Abstracts;
 using FreeCourse.Shared.Services.Interfaces;
@@ -26,6 +27,7 @@ namespace FreeCourse.Services.Basket
         {
             services.AddHttpContextAccessor();
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+            services.AddScoped<IBasketService, BasketService>();
             services.Configure<RedisSettings>(Configuration.GetSection("RedisSettings"));
             services.AddSingleton(sp =>
             {
