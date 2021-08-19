@@ -1,3 +1,7 @@
+using FreeCourse.Services.Discount.Services.Abstracts;
+using FreeCourse.Services.Discount.Services.Interfaces;
+using FreeCourse.Shared.Services.Abstracts;
+using FreeCourse.Shared.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +35,9 @@ namespace FreeCourse.Services.Discount
         {
             var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+
+            services.AddScoped<IDiscountService, DiscountService>();
+            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 
             services.AddHttpContextAccessor();
             services.AddAutoMapper(typeof(Startup));
