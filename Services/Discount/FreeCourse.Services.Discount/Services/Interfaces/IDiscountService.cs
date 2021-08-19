@@ -8,16 +8,16 @@ namespace FreeCourse.Services.Discount.Services.Interfaces
 {
     public interface IDiscountService
     {
-        Task<ResponseDTO<List<DiscountDTO>>> GetAll();
+        Task<ResponseDTO<List<DiscountDTO>>> GetAllAsync();
 
-        Task<ResponseDTO<DiscountDTO>> GetById(int id);
+        Task<ResponseDTO<DiscountDTO>> GetByIdAsync(int id);
 
-        Task<ResponseDTO<NoContent>> Save(CreateDiscountDTO createDiscount);
+        Task<ResponseDTO<NoContent>> SaveAsync(CreateDiscountDTO createDiscount);
 
-        Task<ResponseDTO<NoContent>> Update(UpdateDiscountDTO updateDiscount);
+        Task<ResponseDTO<NoContent>> UpdateAsync(UpdateDiscountDTO updateDiscount);
 
-        Task<ResponseDTO<NoContent>> Delete(int id);
+        Task<ResponseDTO<NoContent>> DeleteAsync(int id);
 
-        Task<ResponseDTO<DiscountDTO>> GetByCodeAndUserId(string code, string userId);
+        Task<ResponseDTO<DiscountDTO>> GetByCodeAndUserIdAsync(string code, string userId);
     }
 }

@@ -1,42 +1,101 @@
-﻿using FreeCourse.Services.Discount.Dtos.Discounts;
+﻿using AutoMapper;
+using Dapper;
+using FreeCourse.Services.Discount.Dtos.Discounts;
 using FreeCourse.Services.Discount.Services.Interfaces;
 using FreeCourse.Shared.Dtos.NoContent;
 using FreeCourse.Shared.Dtos.Response;
+using Microsoft.Extensions.Configuration;
+using Npgsql;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace FreeCourse.Services.Discount.Services.Abstracts
 {
     public class DiscountService : IDiscountService
     {
-        public Task<ResponseDTO<NoContent>> Delete(int id)
+        private readonly IConfiguration _configuration;
+        private readonly IDbConnection _dbConnection;
+        private readonly IMapper _mapper;
+
+
+        public DiscountService(IConfiguration configuration, IMapper mapper)
         {
-            throw new System.NotImplementedException();
+            _configuration = configuration;
+            _mapper = mapper;
+
+            _dbConnection = new NpgsqlConnection(_configuration.GetConnectionString("PostgreSQL"));
         }
 
-        public Task<ResponseDTO<List<DiscountDTO>>> GetAll()
+        public async Task<ResponseDTO<NoContent>> DeleteAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var deleteStatus = await _dbConnection.ExecuteAsync($"DELETE FROM discount WHERE id = {id}");
+
+            if (deleteStatus < 0)
+            {
+                return ResponseDTO<NoContent>.Success(HttpStatusCode.NoContent);
+            }
+
+            return ResponseDTO<NoContent>.Fail("Discount Not Found", HttpStatusCode.NotFound);
         }
 
-        public Task<ResponseDTO<DiscountDTO>> GetByCodeAndUserId(string code, string userId)
+        public async Task<ResponseDTO<List<DiscountDTO>>> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+            var discounts = await _dbConnection.QueryAsync<Models.Discounts.Discount>("SELECT * FROM discount");
+
+
+            return ResponseDTO<List<DiscountDTO>>.Success(_mapper.Map<List<DiscountDTO>>(discounts), HttpStatusCode.OK);
         }
 
-        public Task<ResponseDTO<DiscountDTO>> GetById(int id)
+        public async Task<ResponseDTO<DiscountDTO>> GetByCodeAndUserIdAsync(string code, string userId)
         {
-            throw new System.NotImplementedException();
+            var discount = (await _dbConnection.QueryAsync<Models.Discounts.Discount>($"SELECT * FROM discount where id={userId} AND code = {code}")).FirstOrDefault();
+
+            if (discount == null)
+            {
+                return ResponseDTO<DiscountDTO>.Fail("Discount not found", HttpStatusCode.NotFound);
+            }
+
+            return ResponseDTO<DiscountDTO>.Success(_mapper.Map<DiscountDTO>(discount), HttpStatusCode.OK);
         }
 
-        public Task<ResponseDTO<NoContent>> Save(CreateDiscountDTO createDiscount)
+        public async Task<ResponseDTO<DiscountDTO>> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var discount = (await _dbConnection.QueryAsync<Models.Discounts.Discount>($"SELECT * FROM discount where id={id}")).SingleOrDefault();
+
+            if(discount == null)
+            {
+                return ResponseDTO<DiscountDTO>.Fail("Discount not found", HttpStatusCode.NotFound);
+            }
+
+            return ResponseDTO<DiscountDTO>.Success(_mapper.Map<DiscountDTO>(discount), HttpStatusCode.OK);
+
         }
 
-        public Task<ResponseDTO<NoContent>> Update(UpdateDiscountDTO updateDiscount)
+        public async Task<ResponseDTO<NoContent>> SaveAsync(CreateDiscountDTO createDiscount)
         {
-            throw new System.NotImplementedException();
+            var saveStatus = await _dbConnection.ExecuteAsync($"INSERT INTO discount (userid, rate, code) VALUES ({createDiscount.UserId}, {createDiscount.Rate}, {createDiscount.Code})");
+
+            if(saveStatus < 0)
+            {
+                return ResponseDTO<NoContent>.Success(HttpStatusCode.NoContent);
+            }
+
+            return ResponseDTO<NoContent>.Fail("An error occurred while adding",HttpStatusCode.NoContent);
+        }
+
+        public async Task<ResponseDTO<NoContent>> UpdateAsync(UpdateDiscountDTO updateDiscount)
+        {
+            var updateStatus = await _dbConnection.ExecuteAsync($"UPDATE discount set userId = {updateDiscount.UserId}, code = {updateDiscount.Code}, rate = {updateDiscount.Rate}");
+
+            if (updateStatus < 0)
+            {
+                return ResponseDTO<NoContent>.Success(HttpStatusCode.NoContent);
+            }
+
+            return ResponseDTO<NoContent>.Fail("Discount Not Found", HttpStatusCode.NotFound);
         }
     }
 }

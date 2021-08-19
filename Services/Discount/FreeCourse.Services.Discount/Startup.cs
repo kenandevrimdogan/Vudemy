@@ -26,6 +26,7 @@ namespace FreeCourse.Services.Discount
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
