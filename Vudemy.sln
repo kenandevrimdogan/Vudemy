@@ -30,6 +30,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{9221A6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.Services.Basket", "Services\Basket\FreeCourse.Services.Basket\FreeCourse.Services.Basket.csproj", "{EB53548B-2937-400C-9C7D-99C8D3FA9E0A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Discount", "{D91BEA3D-821E-4E43-8C41-043A6C08CA45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.Services.Discount", "Services\Discount\FreeCourse.Services.Discount\FreeCourse.Services.Discount.csproj", "{8F458157-DE89-4AE3-BEEF-DBEAD4E56C45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +60,10 @@ Global
 		{EB53548B-2937-400C-9C7D-99C8D3FA9E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB53548B-2937-400C-9C7D-99C8D3FA9E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB53548B-2937-400C-9C7D-99C8D3FA9E0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F458157-DE89-4AE3-BEEF-DBEAD4E56C45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F458157-DE89-4AE3-BEEF-DBEAD4E56C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F458157-DE89-4AE3-BEEF-DBEAD4E56C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F458157-DE89-4AE3-BEEF-DBEAD4E56C45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +77,8 @@ Global
 		{E31E5D34-32C3-4E3B-A293-7755F887802A} = {D9710FD0-BD23-4532-982A-95A22361CD3F}
 		{9221A674-AA21-499D-A94B-A084A114A1B2} = {B07076AE-4098-4049-910E-CE1BA371F3AD}
 		{EB53548B-2937-400C-9C7D-99C8D3FA9E0A} = {9221A674-AA21-499D-A94B-A084A114A1B2}
+		{D91BEA3D-821E-4E43-8C41-043A6C08CA45} = {B07076AE-4098-4049-910E-CE1BA371F3AD}
+		{8F458157-DE89-4AE3-BEEF-DBEAD4E56C45} = {D91BEA3D-821E-4E43-8C41-043A6C08CA45}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7228B1B9-50D8-4DB7-A6E2-6F31CD646CDB}
