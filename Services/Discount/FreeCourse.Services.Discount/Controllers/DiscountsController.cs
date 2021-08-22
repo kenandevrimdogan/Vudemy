@@ -26,7 +26,7 @@ namespace FreeCourse.Services.Discount.Controllers
             return CreateActionResultInstance(await _discountService.GetAllAsync());
         }
 
-        [Route("/api/[controller]GetByCodeAsync/{code}")]
+        [Route("/api/[controller]/GetByCodeAsync/{code}")]
         [HttpGet]
         public async Task<IActionResult> GetByCodeAsync(string code)
         {
