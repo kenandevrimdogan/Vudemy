@@ -6,3 +6,4 @@ identityServer => 5001
 	-discountAPI => 5014
 	-orderAPI => 5015
 	-fakePaymentAPI => 5016
+Gateway => 5000
