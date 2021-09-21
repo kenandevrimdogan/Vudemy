@@ -83,7 +83,29 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
 
         public async Task RevokeRefreshToken()
         {
+            var disko = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            {
+                Address = _serviceApiSettings.BaseUri,
+                Policy = new DiscoveryPolicy { RequireHttps = false }
+            });
 
+            if (disko.IsError)
+            {
+                throw disko.Exception;
+            }
+
+            var refreshToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
+
+            TokenRevocationRequest tokenRevocationRequest = new TokenRevocationRequest
+            {
+                ClientId = _clientSettings.WebClientForUse.ClientId,
+                ClientSecret = _clientSettings.WebClientForUse.ClientSecret,
+                Address = disko.RevocationEndpoint,
+                Token = refreshToken,
+                TokenTypeHint = "refresh_token"
+            };
+
+            await _httpClient.RevokeTokenAsync(tokenRevocationRequest);
         }
 
         public async Task<ResponseDTO<bool>> SignIn(SignInInput signInInput)
