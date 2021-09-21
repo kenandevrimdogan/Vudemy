@@ -27,7 +27,12 @@ namespace FreeCourse.Frontends.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
+
+            var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
             services.AddHttpClient<IIdentityService, IdentityService>();
+            services.AddHttpClient<IUserService, UserService>(opt=> {
+                opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
+            });
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opts =>
