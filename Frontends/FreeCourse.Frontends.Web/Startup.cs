@@ -1,3 +1,4 @@
+using FreeCourse.Frontends.Web.Handler;
 using FreeCourse.Frontends.Web.Models;
 using FreeCourse.Frontends.Web.Services.Abstracts;
 using FreeCourse.Frontends.Web.Services.Interfaces;
@@ -29,10 +30,12 @@ namespace FreeCourse.Frontends.Web
             services.AddHttpContextAccessor();
 
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+
             services.AddHttpClient<IIdentityService, IdentityService>();
             services.AddHttpClient<IUserService, UserService>(opt=> {
                 opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
-            });
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opts =>
