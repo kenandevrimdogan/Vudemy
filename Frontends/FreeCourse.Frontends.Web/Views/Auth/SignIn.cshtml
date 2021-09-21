@@ -8,17 +8,17 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Üye Giriş</h5>
-
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                 <form asp-controller="Auth" asp-action="SignIn" method="post">
                     <div class="mb-3">
                         <label asp-for="Email" for="exampleInputEmail1" class="form-label"></label>
                         <input asp-for="Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        <div asp-validation-for="Email" id="emailHelp" class="danger"></div>
+                        <span asp-validation-for="Email" id="emailHelp" class="danger"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="Password" for="exampleInputPassword1" class="form-label">Password</label>
                         <input asp-for="Password" type="password" class="form-control" id="exampleInputPassword1">
-                        <div asp-validation-for="Password" id="emailHelp" class="danger"></div>
+                        <span asp-validation-for="Password" id="emailHelp" class="danger"></span>
                     </div>
                     <div class="mb-3 form-check">
                         <input asp-for="IsRemember" type="checkbox" class="form-check-input" id="exampleCheck1">
