@@ -31,6 +31,7 @@ namespace FreeCourse.Frontends.Web
 
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 
+            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
             services.AddHttpClient<IIdentityService, IdentityService>();
             services.AddHttpClient<IUserService, UserService>(opt=> {
                 opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
