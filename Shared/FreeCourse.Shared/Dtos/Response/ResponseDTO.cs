@@ -6,7 +6,7 @@ namespace FreeCourse.Shared.Dtos.Response
 {
     public class ResponseDTO<T>
     {
-        public T Data { get; private set; }
+        public T Data { get; set; }
 
         [JsonIgnore]
         public HttpStatusCode StatusCode { get; set; }

@@ -37,7 +37,7 @@ namespace FreeCourse.Services.Catalog.Services.Course.Abstracts
             {
                 foreach (var course in courses)
                 {
-                    course.Category = await _categoryCollection.Find(x => x.Id == course.Id).FirstAsync();
+                    course.Category = await _categoryCollection.FindSync(x => x.Id == course.Id).FirstOrDefaultAsync();
                 }
             }
 
