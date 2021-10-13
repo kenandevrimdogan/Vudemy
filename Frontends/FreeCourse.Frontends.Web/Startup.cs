@@ -2,6 +2,8 @@ using FreeCourse.Frontends.Web.Handler;
 using FreeCourse.Frontends.Web.Models;
 using FreeCourse.Frontends.Web.Services.Abstracts;
 using FreeCourse.Frontends.Web.Services.Interfaces;
+using FreeCourse.Shared.Services.Abstracts;
+using FreeCourse.Shared.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +30,7 @@ namespace FreeCourse.Frontends.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
+            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 
@@ -36,12 +39,12 @@ namespace FreeCourse.Frontends.Web
             services.AddHttpClient<IUserService, UserService>(opt=> {
                 opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
 
             services.AddHttpClient<ICatalogService, CatalogService>(opt =>
             {
                 opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
             });
-
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opts =>
