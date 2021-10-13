@@ -1,6 +1,8 @@
-﻿using FreeCourse.Frontends.Web.Services.Interfaces;
+﻿using FreeCourse.Frontends.Web.Models.Catalogs;
+using FreeCourse.Frontends.Web.Services.Interfaces;
 using FreeCourse.Shared.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 
 namespace FreeCourse.Frontends.Web.Controllers
@@ -20,6 +22,16 @@ namespace FreeCourse.Frontends.Web.Controllers
         {
             var course = await _catalogService.GetAllCourseByUserIdAsync(_sharedIdentityService.GetUserId);
             return View(course);
+        }
+
+        public async Task<IActionResult> Create()
+        {
+            var categories = await _catalogService.GetAllCategoryAsync();
+
+            var selectList = new SelectList(categories, "Id", "Name");
+            ViewBag.categoryList = selectList;
+
+            return View();
         }
     }
 }
