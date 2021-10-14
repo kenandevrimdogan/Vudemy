@@ -89,5 +89,17 @@ namespace FreeCourse.Frontends.Web.Controllers
 
             return RedirectToAction(nameof(CoursesController.Index));
         }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return View();
+            }
+
+            await _catalogService.DeleteCourseAsync(id);
+
+            return RedirectToAction(nameof(CoursesController.Index));
+        }
     }
 }

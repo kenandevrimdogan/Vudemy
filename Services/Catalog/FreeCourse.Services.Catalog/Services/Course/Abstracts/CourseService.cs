@@ -62,6 +62,12 @@ namespace FreeCourse.Services.Catalog.Services.Course.Abstracts
         {
             var courses = await _courseCollection.Find(x => x.UserId == userId).ToListAsync();
 
+            foreach (var item in courses)
+            {
+                item.Category = _categoryCollection.Find(x => x.Id == item.CategoryId).FirstOrDefault();
+            }
+
+
             if (!courses.Any())
             {
                 return ResponseDTO<List<CourseDTO>>.Success(new List<CourseDTO>(), HttpStatusCode.OK);
