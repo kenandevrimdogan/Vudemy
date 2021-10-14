@@ -33,5 +33,20 @@ namespace FreeCourse.Frontends.Web.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CourseCreateInput courseCreateInput)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            courseCreateInput.UserId = _sharedIdentityService.GetUserId;
+
+            await _catalogService.CreateCourseAsync(courseCreateInput);
+
+            return RedirectToAction(nameof(CoursesController.Index));
+        }
     }
 }
