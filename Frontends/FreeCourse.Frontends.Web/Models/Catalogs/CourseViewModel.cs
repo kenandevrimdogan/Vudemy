@@ -22,6 +22,8 @@ namespace FreeCourse.Frontends.Web.Models
 
         public string Picture { get; set; }
 
+        public string StockPictureURL { get; set; }
+
         public DateTime CreatedTime { get; set; }
 
         public FeatureViewModel Feature { get; set; }

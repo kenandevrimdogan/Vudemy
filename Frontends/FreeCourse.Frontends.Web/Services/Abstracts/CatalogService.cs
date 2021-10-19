@@ -29,7 +29,7 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
         {
             var resultPhotoService = await _photoStockService.UploadPhoto(courseCreateInput.PhotoFormFile);
 
-            if(resultPhotoService != null)
+            if (resultPhotoService != null)
             {
                 courseCreateInput.Picture = resultPhotoService.URL;
             }
@@ -58,6 +58,7 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
 
             var result = await response.Content.ReadFromJsonAsync<ResponseDTO<List<CategoryViewModel>>>();
 
+
             return result.Data;
         }
 
@@ -74,7 +75,7 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
 
             result.Data.ForEach(x =>
             {
-                x.Picture = _photoHelper.GetPhotoStockURL(x.Picture);
+                x.StockPictureURL = _photoHelper.GetPhotoStockURL(x.Picture);
             });
 
             return result.Data;
@@ -93,7 +94,7 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
 
             result.Data.ForEach(x =>
             {
-                x.Picture = _photoHelper.GetPhotoStockURL(x.Picture);
+                x.StockPictureURL = _photoHelper.GetPhotoStockURL(x.Picture);
             });
 
             return result.Data;
@@ -109,6 +110,7 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
             }
 
             var result = await response.Content.ReadFromJsonAsync<ResponseDTO<CourseViewModel>>();
+            result.Data.StockPictureURL = _photoHelper.GetPhotoStockURL(result.Data.Picture);
 
             return result.Data;
         }
