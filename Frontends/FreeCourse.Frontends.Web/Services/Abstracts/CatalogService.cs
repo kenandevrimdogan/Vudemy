@@ -1,4 +1,5 @@
-﻿using FreeCourse.Frontends.Web.Models;
+﻿using FreeCourse.Frontends.Web.Helpers;
+using FreeCourse.Frontends.Web.Models;
 using FreeCourse.Frontends.Web.Models.Catalogs;
 using FreeCourse.Frontends.Web.Services.Interfaces;
 using FreeCourse.Shared.Dtos.Response;
@@ -14,15 +15,27 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
     public class CatalogService : ICatalogService
     {
         private readonly HttpClient _httpClient;
+        private readonly IPhotoStockService _photoStockService;
+        private readonly PhotoHelper _photoHelper;
 
-        public CatalogService(HttpClient httpClient)
+        public CatalogService(HttpClient httpClient, IPhotoStockService photoStockService, PhotoHelper photoHelper)
         {
             _httpClient = httpClient;
+            _photoStockService = photoStockService;
+            _photoHelper = photoHelper;
         }
 
         public async Task<bool> CreateCourseAsync(CourseCreateInput courseCreateInput)
         {
+            var resultPhotoService = await _photoStockService.UploadPhoto(courseCreateInput.PhotoFormFile);
+
+            if(resultPhotoService != null)
+            {
+                courseCreateInput.Picture = resultPhotoService.URL;
+            }
+
             var response = await _httpClient.PostAsJsonAsync<CourseCreateInput>("courses", courseCreateInput);
+
 
             return response.IsSuccessStatusCode;
         }
@@ -59,6 +72,11 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
 
             var result = await response.Content.ReadFromJsonAsync<ResponseDTO<List<CourseViewModel>>>();
 
+            result.Data.ForEach(x =>
+            {
+                x.Picture = _photoHelper.GetPhotoStockURL(x.Picture);
+            });
+
             return result.Data;
         }
 
@@ -72,6 +90,11 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
             }
 
             var result = await response.Content.ReadFromJsonAsync<ResponseDTO<List<CourseViewModel>>>();
+
+            result.Data.ForEach(x =>
+            {
+                x.Picture = _photoHelper.GetPhotoStockURL(x.Picture);
+            });
 
             return result.Data;
         }
@@ -92,6 +115,13 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
 
         public async Task<bool> UpdateCourseAsync(CourseUpdateInput courseUpdateInput)
         {
+            var resultPhotoService = await _photoStockService.UploadPhoto(courseUpdateInput.PhotoFormFile);
+
+            if (resultPhotoService != null)
+            {
+                courseUpdateInput.Picture = resultPhotoService.URL;
+            }
+
             var response = await _httpClient.PutAsJsonAsync<CourseUpdateInput>("courses", courseUpdateInput);
 
             return response.IsSuccessStatusCode;

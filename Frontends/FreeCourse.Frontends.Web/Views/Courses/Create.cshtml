@@ -15,28 +15,34 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class=" form-group">
                         <label asp-for="Name"></label>
                         <input asp-for="Name" class="form-control" />
                         <span class="text-danger" asp-validation-for="Name"></span>
                     </div>
 
-                    <div class="form-group">
+                    <div class=" form-group">
                         <label asp-for="Price"></label>
                         <input asp-for="Price" class="form-control" />
                         <span class="text-danger" asp-validation-for="Price"></span>
                     </div>
 
-                    <div class="form-group">
+                    <div class=" form-group">
                         <label asp-for="Description"></label>
                         <textarea asp-for="Description" class="form-control"></textarea>
                         <span class="text-danger" asp-validation-for="Description"></span>
                     </div>
 
-                    <div class="form-group">
+                    <div class=" form-group">
                         <label asp-for="Feature.Duration"></label>
                         <input asp-for="Feature.Duration" class="form-control" />
                         <span class="text-danger" asp-validation-for="Feature.Duration"></span>
+                    </div>
+
+                    <div class=" form-group">
+                        <label asp-for="PhotoFormFile"></label>
+                        <input type="file" asp-for="PhotoFormFile" class="form-control" />
+                        <span class="text-danger" asp-validation-for="PhotoFormFile"></span>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Kurs Kaydet</button>

@@ -6,6 +6,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
+using FreeCourse.Shared.Dtos.Response;
 
 namespace FreeCourse.Frontends.Web.Services.Abstracts
 {
@@ -50,8 +51,8 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
                 return null;
             }
 
-            var viewModel = await response.Content.ReadFromJsonAsync<PhotoStockViewModel>();
-            return viewModel;
+            var responseSuccess = await response.Content.ReadFromJsonAsync<ResponseDTO<PhotoStockViewModel>>();
+            return responseSuccess.Data;
         }
     }
 }

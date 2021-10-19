@@ -1,4 +1,5 @@
 using FreeCourse.Frontends.Web.Handler;
+using FreeCourse.Frontends.Web.Helpers;
 using FreeCourse.Frontends.Web.Models;
 using FreeCourse.Frontends.Web.Services.Abstracts;
 using FreeCourse.Frontends.Web.Services.Interfaces;
@@ -32,6 +33,8 @@ namespace FreeCourse.Frontends.Web
             services.AddHttpContextAccessor();
             services.AddAccessTokenManagement();
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+
+            services.AddSingleton<PhotoHelper>();
 
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddScoped<ResourceOwnerPasswordTokenHandler>();
