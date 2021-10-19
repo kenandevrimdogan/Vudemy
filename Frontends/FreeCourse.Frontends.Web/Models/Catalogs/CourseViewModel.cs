@@ -13,6 +13,11 @@ namespace FreeCourse.Frontends.Web.Models
 
         public string Description { get; set; }
 
+        public string ShortDescription
+        {
+            get => Description.Length > 100 ? Description.Substring(0, 100) + "..." : Description;
+        }
+
         public string UserId { get; set; }
 
         public string Picture { get; set; }
