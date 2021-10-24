@@ -1,3 +1,4 @@
+using FreeCourse.Frontends.Web.Extensions;
 using FreeCourse.Frontends.Web.Handler;
 using FreeCourse.Frontends.Web.Helpers;
 using FreeCourse.Frontends.Web.Models;
@@ -27,9 +28,9 @@ namespace FreeCourse.Frontends.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
             services.AddHttpContextAccessor();
             services.AddAccessTokenManagement();
-            var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 
             services.AddSingleton<PhotoHelper>();
 
@@ -37,20 +38,11 @@ namespace FreeCourse.Frontends.Web
             services.AddScoped<ResourceOwnerPasswordTokenHandler>();
             services.AddScoped<ClientCredentialTokenHandler>();
 
-            services.AddHttpClient<IIdentityService, IdentityService>();
+            services.AddHttpClientServices(Configuration);
             services.AddHttpClient<IUserService, UserService>(opt=> {
                 opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
-            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
-            services.AddHttpClient<ICatalogService, CatalogService>(opt =>
-            {
-                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
-            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
-
-            services.AddHttpClient<IPhotoStockService, PhotoStockService>(opt =>
-            {
-                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.PhotoStock.Path}");
-            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+           
 
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));

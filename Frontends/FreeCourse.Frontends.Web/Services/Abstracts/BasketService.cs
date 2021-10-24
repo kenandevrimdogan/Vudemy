@@ -1,11 +1,19 @@
 ﻿using FreeCourse.Frontends.Web.Models.Baskets;
 using FreeCourse.Frontends.Web.Services.Interfaces;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace FreeCourse.Frontends.Web.Services.Abstracts
 {
     public class BasketService : IBasketService
     {
+        private readonly HttpClient _httpClient;
+
+        public BasketService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
         public Task AddBasketItem(BasketItemViewModel basketItem)
         {
             throw new System.NotImplementedException();
