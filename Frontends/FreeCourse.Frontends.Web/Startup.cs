@@ -1,9 +1,11 @@
+using FluentValidation.AspNetCore;
 using FreeCourse.Frontends.Web.Extensions;
 using FreeCourse.Frontends.Web.Handler;
 using FreeCourse.Frontends.Web.Helpers;
 using FreeCourse.Frontends.Web.Models;
 using FreeCourse.Frontends.Web.Services.Abstracts;
 using FreeCourse.Frontends.Web.Services.Interfaces;
+using FreeCourse.Frontends.Web.Validators.Courses;
 using FreeCourse.Shared.Services.Abstracts;
 using FreeCourse.Shared.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -39,10 +41,11 @@ namespace FreeCourse.Frontends.Web
             services.AddScoped<ClientCredentialTokenHandler>();
 
             services.AddHttpClientServices(Configuration);
-            services.AddHttpClient<IUserService, UserService>(opt=> {
+            services.AddHttpClient<IUserService, UserService>(opt =>
+            {
                 opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
-           
+
 
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
@@ -54,7 +57,7 @@ namespace FreeCourse.Frontends.Web
                 opts.SlidingExpiration = true;
                 opts.Cookie.Name = "vudemywebcookie";
             });
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CourseCreateInputValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
