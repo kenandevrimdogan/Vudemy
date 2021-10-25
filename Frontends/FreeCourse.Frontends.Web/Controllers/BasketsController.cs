@@ -1,4 +1,5 @@
 ﻿using FreeCourse.Frontends.Web.Models.Baskets;
+using FreeCourse.Frontends.Web.Models.Discounts;
 using FreeCourse.Frontends.Web.Services.Interfaces;
 using FreeCourse.Shared.ControllerBases;
 using Microsoft.AspNetCore.Authorization;
@@ -45,6 +46,21 @@ namespace FreeCourse.Frontends.Web.Controllers
         {
             await _basketService.RemoveBasketItem(courseId);
 
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> ApplyDiscount(DiscountApplyInput input)
+        {
+            var discountStatus = await _basketService.ApplyDiscount(input.Code);
+
+            TempData["discountStatus"] = discountStatus;
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> CancelApplyDiscount()
+        {
+            await _basketService.CancelAplyDiscount();
             return RedirectToAction(nameof(Index));
         }
     }
