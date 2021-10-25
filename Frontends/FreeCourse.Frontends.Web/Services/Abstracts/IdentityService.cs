@@ -50,8 +50,8 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
 
             RefreshTokenRequest refreshTokenRequest = new RefreshTokenRequest
             {
-                ClientId = _clientSettings.WebClientForUse.ClientId,
-                ClientSecret = _clientSettings.WebClientForUse.ClientSecret,
+                ClientId = _clientSettings.WebClientForUser.ClientId,
+                ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
                 RefreshToken = refreshToken,
                 Address = disko.TokenEndpoint
             };
@@ -98,8 +98,8 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
 
             TokenRevocationRequest tokenRevocationRequest = new TokenRevocationRequest
             {
-                ClientId = _clientSettings.WebClientForUse.ClientId,
-                ClientSecret = _clientSettings.WebClientForUse.ClientSecret,
+                ClientId = _clientSettings.WebClientForUser.ClientId,
+                ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
                 Address = disko.RevocationEndpoint,
                 Token = refreshToken,
                 TokenTypeHint = "refresh_token"
@@ -123,8 +123,8 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
 
             var passwordTokenRequest = new PasswordTokenRequest
             {
-                ClientId = _clientSettings.WebClientForUse.ClientId,
-                ClientSecret = _clientSettings.WebClientForUse.ClientSecret,
+                ClientId = _clientSettings.WebClientForUser.ClientId,
+                ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
                 UserName = signInInput.Email,
                 Password = signInInput.Password,
                 Address = disko.TokenEndpoint,

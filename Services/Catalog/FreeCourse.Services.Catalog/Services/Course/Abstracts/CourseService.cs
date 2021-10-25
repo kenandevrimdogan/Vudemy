@@ -37,7 +37,7 @@ namespace FreeCourse.Services.Catalog.Services.Course.Abstracts
             {
                 foreach (var course in courses)
                 {
-                    course.Category = await _categoryCollection.FindSync(x => x.Id == course.Id).FirstOrDefaultAsync();
+                    course.Category = await _categoryCollection.FindSync(x => x.Id == course.CategoryId).FirstOrDefaultAsync();
                 }
             }
 
@@ -52,6 +52,8 @@ namespace FreeCourse.Services.Catalog.Services.Course.Abstracts
             {
                 return ResponseDTO<CourseDTO>.Success(new CourseDTO(), HttpStatusCode.OK);
             }
+
+            course.Category = await _categoryCollection.Find(x => x.Id == course.CategoryId).FirstOrDefaultAsync();
 
             var courseDTO = _maper.Map<Models.Courses.Course, CourseDTO>(course);
 

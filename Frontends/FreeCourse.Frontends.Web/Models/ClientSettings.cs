@@ -4,7 +4,7 @@
     {
         public Client WebClient { get; set; }
 
-        public Client WebClientForUse { get; set; }
+        public Client WebClientForUser { get; set; }
 
     }
 
