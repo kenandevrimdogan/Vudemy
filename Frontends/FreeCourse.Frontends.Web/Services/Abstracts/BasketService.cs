@@ -12,10 +12,12 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
     public class BasketService : IBasketService
     {
         private readonly HttpClient _httpClient;
+        private readonly IDiscountService _discountService;
 
-        public BasketService(HttpClient httpClient)
+        public BasketService(HttpClient httpClient, IDiscountService discountService)
         {
             _httpClient = httpClient;
+            _discountService = discountService;
         }
 
         public async Task AddBasketItem(BasketItemViewModel basketItem)
@@ -45,14 +47,41 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
             await SaveOrUpdate(basket);
         }
 
-        public Task<bool> ApplyDiscount(string discountCode)
+        public async Task<bool> ApplyDiscount(string discountCode)
         {
-            throw new System.NotImplementedException();
+            await CancelAplyDiscount();
+
+            var basket = await Get();
+
+            if (basket == null || string.IsNullOrEmpty(basket.DiscountCode))
+            {
+                return false;
+            }
+
+            var discount = await _discountService.GetDiscount(discountCode);
+
+            if (discount == null)
+            {
+                return false;
+            }
+
+            basket.DiscountRate = discount.Rate;
+            basket.DiscountCode = discount.Code;
+            return await SaveOrUpdate(basket);
         }
 
-        public Task<bool> CancelAplyDiscount()
+        public async Task<bool> CancelAplyDiscount()
         {
-            throw new System.NotImplementedException();
+            var basket = await Get();
+
+            if (basket == null || string.IsNullOrEmpty(basket.DiscountCode))
+            {
+                return false;
+            }
+
+            basket.DiscountCode = null;
+            basket.DiscountRate = null;
+            return await SaveOrUpdate(basket);
         }
 
         public async Task<bool> Delete()
