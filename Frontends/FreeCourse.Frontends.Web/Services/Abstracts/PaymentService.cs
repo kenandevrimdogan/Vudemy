@@ -1,6 +1,7 @@
 ﻿using FreeCourse.Frontends.Web.Models.FaketPayments;
 using FreeCourse.Frontends.Web.Services.Interfaces;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace FreeCourse.Frontends.Web.Services.Abstracts
@@ -9,9 +10,11 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
     {
         public readonly HttpClient _httpClient;
 
-        public Task<bool> ReceivePayment(PaymentInfoInput paymentInfo)
+        public async Task<bool> ReceivePayment(PaymentInfoInput paymentInfo)
         {
-            throw new System.NotImplementedException();
+            var response = await _httpClient.PostAsJsonAsync<PaymentInfoInput>("fakepayments", paymentInfo);
+
+            return response.IsSuccessStatusCode;
         }
     }
 }
