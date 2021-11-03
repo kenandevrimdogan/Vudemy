@@ -16,6 +16,8 @@
 
         public ServiceApi Discount { get; set; }
 
+        public ServiceApi Payment { get; set; }
+
     }
 
     public class ServiceApi
