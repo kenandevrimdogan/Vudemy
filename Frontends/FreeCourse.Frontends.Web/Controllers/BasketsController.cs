@@ -4,6 +4,7 @@ using FreeCourse.Frontends.Web.Services.Interfaces;
 using FreeCourse.Shared.ControllerBases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FreeCourse.Frontends.Web.Controllers
@@ -51,6 +52,12 @@ namespace FreeCourse.Frontends.Web.Controllers
 
         public async Task<IActionResult> ApplyDiscount(DiscountApplyInput input)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["discountError"] = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).FirstOrDefault();
+                return RedirectToAction(nameof(Index));
+            }
+
             var discountStatus = await _basketService.ApplyDiscount(input.Code);
 
             TempData["discountStatus"] = discountStatus;

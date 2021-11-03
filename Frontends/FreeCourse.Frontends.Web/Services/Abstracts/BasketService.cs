@@ -53,7 +53,7 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
 
             var basket = await Get();
 
-            if (basket == null || string.IsNullOrEmpty(basket.DiscountCode))
+            if (basket == null)
             {
                 return false;
             }
@@ -65,8 +65,7 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
                 return false;
             }
 
-            basket.DiscountRate = discount.Rate;
-            basket.DiscountCode = discount.Code;
+            basket.ApplyDiscount(discount.Code, discount.Rate);
             return await SaveOrUpdate(basket);
         }
 
@@ -79,8 +78,7 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
                 return false;
             }
 
-            basket.DiscountCode = null;
-            basket.DiscountRate = null;
+            basket.CancelDiscount();
             return await SaveOrUpdate(basket);
         }
 

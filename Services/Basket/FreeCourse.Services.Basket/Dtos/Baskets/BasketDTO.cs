@@ -9,6 +9,8 @@ namespace FreeCourse.Services.Basket.Dtos.Baskets
 
         public string DiscountCode { get; set; }
 
+        public int? DiscountRate { get; set; }
+
         public List<BasketItemDTO> BasketItems { get; set; }
         
         public decimal TotalPrice
