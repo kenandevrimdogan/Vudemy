@@ -18,6 +18,8 @@
 
         public ServiceApi Payment { get; set; }
 
+        public ServiceApi Order { get; set; }
+
     }
 
     public class ServiceApi
