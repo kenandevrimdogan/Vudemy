@@ -10,6 +10,11 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
     {
         public readonly HttpClient _httpClient;
 
+        public PaymentService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
         public async Task<bool> ReceivePayment(PaymentInfoInput paymentInfo)
         {
             var response = await _httpClient.PostAsJsonAsync<PaymentInfoInput>("fakepayments", paymentInfo);
