@@ -83,9 +83,7 @@ namespace FreeCourse.IdentityServer
                     AllowedScopes = {
                         "gateway_fullpermission",
                         "basket_fullpermission",
-                        "discount_fullpermission",
                         "order_fullpermission",
-                        "payment_fullpermission",
                         IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
@@ -97,7 +95,15 @@ namespace FreeCourse.IdentityServer
                     RefreshTokenExpiration = TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60) - DateTime.Now).TotalSeconds,
                     RefreshTokenUsage = TokenUsage.ReUse
-                }
+                },
+                new Client
+                {
+                    ClientName = "Token Exchange Client",
+                    ClientId = "TokenExchangeClient",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = new [] {"urn:ietf:params:oauth:grant-type:token-exchange" },
+                    AllowedScopes = { "discount_fullpermission", "payment_fullpermission", IdentityServerConstants.StandardScopes.OpenId }
+                },
             };
     }
 }
