@@ -4,6 +4,8 @@ using FreeCourse.Services.Catalog.Services.Course.Interfaces;
 using FreeCourse.Services.Catalog.Settings;
 using FreeCourse.Shared.Dtos.NoContent;
 using FreeCourse.Shared.Dtos.Response;
+using FreeCourse.Shared.Messages;
+using MassTransit;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -18,8 +20,9 @@ namespace FreeCourse.Services.Catalog.Services.Course.Abstracts
         private readonly IMongoCollection<Models.Courses.Course> _courseCollection;
         private readonly IMongoCollection<Models.Categories.Category> _categoryCollection;
         private readonly IMapper _maper;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public CourseService(IMapper maper, IDatabaseSettings databaseSettings)
+        public CourseService(IMapper maper, IDatabaseSettings databaseSettings, IPublishEndpoint publishEndpoint)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
@@ -27,6 +30,7 @@ namespace FreeCourse.Services.Catalog.Services.Course.Abstracts
             _courseCollection = database.GetCollection<Models.Courses.Course>(databaseSettings.CourseCollectionName);
             _categoryCollection = database.GetCollection<Models.Categories.Category>(databaseSettings.CategoryCollectionName);
             _maper = maper;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<ResponseDTO<List<CourseDTO>>> GetAllAsync()
@@ -103,6 +107,12 @@ namespace FreeCourse.Services.Catalog.Services.Course.Abstracts
             {
                 return ResponseDTO<NoContent>.Fail("Course not found", HttpStatusCode.NotFound);
             }
+
+            await _publishEndpoint.Publish<CourseNameChanedEvent>(new CourseNameChanedEvent
+            {
+                CourseId = course.Id,
+                UpdatedName = courseUpdate.Name
+            });
 
             var courseDTO = _maper.Map<Models.Courses.Course, CourseDTO>(course);
 

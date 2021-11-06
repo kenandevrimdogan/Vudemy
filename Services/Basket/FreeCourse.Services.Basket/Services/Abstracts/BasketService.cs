@@ -1,6 +1,9 @@
 ﻿using FreeCourse.Services.Basket.Dtos.Baskets;
 using FreeCourse.Services.Basket.Services.Interfaces;
 using FreeCourse.Shared.Dtos.Response;
+using FreeCourse.Shared.Services.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -21,6 +24,32 @@ namespace FreeCourse.Services.Basket.Services.Abstracts
             var status = await _redisService.GetDB().KeyDeleteAsync(userId);
 
             return status ? ResponseDTO<bool>.Success(HttpStatusCode.OK) : ResponseDTO<bool>.Fail("Basket not found", HttpStatusCode.NotFound);
+        }
+
+        public async Task<ResponseDTO<List<BasketDTO>>> GetBaskets()
+        {
+            var keys = _redisService.GetKeys();
+
+            string[] keysArr = keys.Select(key => (string)key).ToArray();
+
+            var baskets = new List<BasketDTO>();
+
+            foreach (var item in keysArr)
+            {
+                var existBasket = await _redisService.GetDB().StringGetAsync(item);
+
+                if (!string.IsNullOrEmpty(existBasket))
+                {
+                    baskets.Add(JsonSerializer.Deserialize<BasketDTO>(existBasket));
+                }
+            }
+
+            if (baskets.Count <= default(int))
+            {
+                return ResponseDTO<List<BasketDTO>>.Fail("Basket not found", HttpStatusCode.BadRequest);
+            }
+
+            return ResponseDTO<List<BasketDTO>>.Success(baskets, HttpStatusCode.OK);
         }
 
         public async Task<ResponseDTO<BasketDTO>> GetBasket(string userId)
