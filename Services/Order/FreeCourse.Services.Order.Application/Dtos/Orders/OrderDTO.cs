@@ -13,7 +13,7 @@ namespace FreeCourse.Services.Order.Application.Dtos.Orders
 
         public string BuyerId { get; set; }
 
-        private List<OrderItemDTO> OrderItems { get; set; }
+        public List<OrderItemDTO> OrderItems { get; set; }
 
     }
 }

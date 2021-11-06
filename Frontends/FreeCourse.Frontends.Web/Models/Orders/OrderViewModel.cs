@@ -13,6 +13,6 @@ namespace FreeCourse.Frontends.Web.Models.Orders
 
         public string BuyerId { get; set; }
 
-        private List<OrderItemViewModel> OrderItems { get; set; }
+        public List<OrderItemViewModel> OrderItems { get; set; }
     }
 }

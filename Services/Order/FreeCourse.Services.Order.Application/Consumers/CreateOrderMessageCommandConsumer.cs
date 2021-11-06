@@ -26,7 +26,7 @@ namespace FreeCourse.Services.Order.Application.Consumers
 
             context.Message.OrderItems.ForEach(x =>
             {
-                order.AddOrderItem(x.PictureURL, x.ProductName, x.PictureURL, x.Price);
+                order.AddOrderItem(x.ProductId, x.ProductName, x.PictureURL, x.Price);
             });
 
             await _orderDBContext.Orders.AddAsync(order);
