@@ -1,4 +1,6 @@
-﻿namespace FreeCourse.Frontends.Web.Models.FaketPayments
+﻿using FreeCourse.Frontends.Web.Models.Orders;
+
+namespace FreeCourse.Frontends.Web.Models.FaketPayments
 {
     public class PaymentInfoInput
     {
@@ -11,5 +13,7 @@
         public string CVV { get; set; }
 
         public decimal TotalPrice { get; set; }
+
+        public OrderCreateInput Order { get; set; }
     }
 }
