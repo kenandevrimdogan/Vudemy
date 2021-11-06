@@ -45,7 +45,16 @@ namespace FreeCourse.Services.FakePayment.Controllers
                 }).ToList()
             };
 
-            await _sendEndpointProvider.Send<CreateOrderMessageCommand>(createOrderMessageCommand);
+
+            try
+            {
+                await sendEndPoint.Send<CreateOrderMessageCommand>(createOrderMessageCommand);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
 
             return CreateActionResultInstance<NoContent>(ResponseDTO<NoContent>.Success(HttpStatusCode.OK));
         }

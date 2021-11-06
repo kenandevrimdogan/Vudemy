@@ -127,6 +127,8 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
                 return new OrderSuspendViewModel { IsSuccess = false, ErrorMessage = "Ödeme alınamadı" };
             }
 
+            await _basketService.Delete();
+
             return new OrderSuspendViewModel { IsSuccess = true };
         }
     }
