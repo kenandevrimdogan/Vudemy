@@ -14,6 +14,6 @@ services:
         image: rabbitmq:3.9.8-management
 volumes:
     catalogdb_volume:
-    discount_volume:
+    discountdb_volume:
     identitydb_volume:
     orderdb_volume:
