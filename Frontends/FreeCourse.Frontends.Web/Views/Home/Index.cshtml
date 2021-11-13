@@ -6,7 +6,7 @@
 
 <h2>Kurslar</h2>
 <hr />
-@if (Model.Any())
+@if (Model.Any() && Model.Count > default(int))
 {
     foreach (var item in Model)
     {

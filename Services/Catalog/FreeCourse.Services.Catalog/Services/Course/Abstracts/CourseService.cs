@@ -37,12 +37,16 @@ namespace FreeCourse.Services.Catalog.Services.Course.Abstracts
         {
             var courses = await _courseCollection.Find(course => true).ToListAsync();
 
-            if (courses.Any())
+            if (courses.Any() && courses.Count > default(int))
             {
                 foreach (var course in courses)
                 {
                     course.Category = await _categoryCollection.FindSync(x => x.Id == course.CategoryId).FirstOrDefaultAsync();
                 }
+            }
+            else
+            {
+                courses = new List<Models.Courses.Course>();
             }
 
             return ResponseDTO<List<CourseDTO>>.Success(_maper.Map<List<CourseDTO>>(courses), HttpStatusCode.OK);
@@ -68,15 +72,17 @@ namespace FreeCourse.Services.Catalog.Services.Course.Abstracts
         {
             var courses = await _courseCollection.Find(x => x.UserId == userId).ToListAsync();
 
-            foreach (var item in courses)
+            if (courses.Any())
             {
-                item.Category = _categoryCollection.Find(x => x.Id == item.CategoryId).FirstOrDefault();
+                foreach (var item in courses)
+                {
+                    item.Category = _categoryCollection.Find(x => x.Id == item.CategoryId).FirstOrDefault();
+                }
+
             }
-
-
-            if (!courses.Any())
+            else
             {
-                return ResponseDTO<List<CourseDTO>>.Success(new List<CourseDTO>(), HttpStatusCode.OK);
+                courses = new List<Models.Courses.Course>();
             }
 
             var courseDTOs = _maper.Map<List<Models.Courses.Course>, List<CourseDTO>>(courses);

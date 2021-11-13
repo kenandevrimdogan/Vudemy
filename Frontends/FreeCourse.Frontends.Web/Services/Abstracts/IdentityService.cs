@@ -96,16 +96,19 @@ namespace FreeCourse.Frontends.Web.Services.Abstracts
 
             var refreshToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
 
-            TokenRevocationRequest tokenRevocationRequest = new TokenRevocationRequest
+            if(refreshToken != null)
             {
-                ClientId = _clientSettings.WebClientForUser.ClientId,
-                ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
-                Address = disko.RevocationEndpoint,
-                Token = refreshToken,
-                TokenTypeHint = "refresh_token"
-            };
+                TokenRevocationRequest tokenRevocationRequest = new TokenRevocationRequest
+                {
+                    ClientId = _clientSettings.WebClientForUser.ClientId,
+                    ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
+                    Address = disko.RevocationEndpoint,
+                    Token = refreshToken,
+                    TokenTypeHint = "refresh_token"
+                };
 
-            await _httpClient.RevokeTokenAsync(tokenRevocationRequest);
+                await _httpClient.RevokeTokenAsync(tokenRevocationRequest);
+            }
         }
 
         public async Task<ResponseDTO<bool>> SignIn(SignInInput signInInput)
