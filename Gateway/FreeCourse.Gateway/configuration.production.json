@@ -10,7 +10,7 @@
         }
       ],
       "UpstreamPathTemplate": "/services/catalog/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme",
@@ -27,7 +27,7 @@
         }
       ],
       "UpstreamPathTemplate": "/services/photostock/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme",
@@ -44,7 +44,7 @@
         }
       ],
       "UpstreamPathTemplate": "/services/basket/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme",
@@ -61,9 +61,9 @@
         }
       ],
       "UpstreamPathTemplate": "/services/discount/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",
-      "DelegatingHandlers": [ "TokenExchangeDelegateHandler" ],
+      "DelegatingHandlers": [ "TokenExhangeDelegateHandler" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme"
       }
@@ -78,7 +78,7 @@
         }
       ],
       "UpstreamPathTemplate": "/services/order/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme",
@@ -95,9 +95,9 @@
         }
       ],
       "UpstreamPathTemplate": "/services/fakepayment/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",
-      "DelegatingHandlers": [ "TokenExchangeDelegateHandler" ],
+      "DelegatingHandlers": [ "TokenExhangeDelegateHandler" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme"
       }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FreeCourse.Services.Catalog.Dtos;
 using FreeCourse.Services.Catalog.Dtos.Category;
 using FreeCourse.Services.Catalog.Services.Category.Interfaces;
 using FreeCourse.Services.Catalog.Settings;

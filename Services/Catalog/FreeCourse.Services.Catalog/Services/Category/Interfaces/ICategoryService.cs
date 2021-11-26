@@ -1,5 +1,5 @@
-﻿using FreeCourse.Services.Catalog.Dtos.Category;
-using FreeCourse.Services.Catalog.Dtos.Course;
+﻿using FreeCourse.Services.Catalog.Dtos;
+using FreeCourse.Services.Catalog.Dtos.Category;
 using FreeCourse.Shared.Dtos.NoContent;
 using FreeCourse.Shared.Dtos.Response;
 using System.Collections.Generic;

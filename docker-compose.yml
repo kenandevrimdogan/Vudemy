@@ -21,7 +21,7 @@ services:
         image: identityserver_api_image
         build: 
             context: .
-            dockerfile: IdentityServer\FreeCourse.IdentityServer\Dockerfile
+            dockerfile: IdentityServer/FreeCourse.IdentityServer/Dockerfile
     basket.api:
         image: basket_api_image
         build:
@@ -51,12 +51,12 @@ services:
         image: gateway_api_image
         build:
             context: .
-            dockerfile: Gateway\FreeCourse.Gateway\Dockerfile
+            dockerfile: Gateway/FreeCourse.Gateway/Dockerfile
     frontend.aspnetcoremvc:
         image: frontend_aspnetcoremvc_image
         build:
             context: .
-            dockerfile: Frontends\FreeCourse.Frontends.Web\Dockerfile
+            dockerfile: Frontends/FreeCourse.Frontends.Web/Dockerfile
 volumes:
     catalogdb_volume:
     discountdb_volume:

@@ -50,7 +50,7 @@ namespace FreeCourse.Services.FakePayment.Controllers
             {
                 await sendEndPoint.Send<CreateOrderMessageCommand>(createOrderMessageCommand);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 throw;

@@ -1,11 +1,16 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim as build
 WORKDIR /app
 EXPOSE 80
-COPY Frontends/FreeCourse.Frontends.Web/*.csproj Frontends/FreeCourse.Frontends.Web/
-RUN dotnet restore Frontends/FreeCourse.Frontends.Web/*.csproj
+COPY Shared/FreeCourse.Shared/*.csproj Shared/FreeCourse.Shared/
+COPY Frontends/FreeCourse.Frontends.Web/*.csproj Frontends/FreeCourse.Web/
+RUN dotnet restore Frontends/FreeCourse.Web/*.csproj
 COPY . .
 RUN dotnet publish Frontends/FreeCourse.Frontends.Web/*.csproj -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim as runtime
 WORKDIR /app
 COPY --from=build /app/out .
-ENTRYPOINT [ "dotnet", "FreeCourse.Frontends.Web.dll" ]
+ENTRYPOINT [ "dotnet","FreeCourse.Frontends.Web.dll" ]
+
+
+
+

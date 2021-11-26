@@ -1,4 +1,6 @@
-﻿namespace FreeCourse.Services.Catalog.Dtos.Category
+﻿using System;
+
+namespace FreeCourse.Services.Catalog.Dtos.Category
 {
     public class CategoryDTO
     {
@@ -7,3 +9,5 @@
         public string Name { get; set; }
     }
 }
+
+
